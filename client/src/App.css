@@ -1,3 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.titleFont {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.buttonColor {
+  background-color: #e14b28;
+}
