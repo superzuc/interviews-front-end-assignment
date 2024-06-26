@@ -10,13 +10,13 @@ export default function Home() {
     const [showSearch, setShowSearch] = useState(false); // Stato per controllare la visibilità della barra di ricerca
     const recipesPerPage = 8;
 
-    // Stati per i filtri
+    //Stati per i filtri
     const [nameRecipe, setNameRecipe] = useState('');
     const [cuisineName, setCuisineName] = useState('');
     const [dietaryPref, setDietaryPref] = useState('');
     const [difficulty, setDifficulty] = useState('');
 
-    // Stati per le opzioni preimpostate
+    //Stati per le opzioni preimpostate
     const [cuisines, setCuisines] = useState<Cuisines[]>([]);
     const [diets, setDiets] = useState<Diets[]>([]);
     const [difficulties, setDifficulties] = useState<Difficulties[]>()
@@ -71,11 +71,11 @@ export default function Home() {
         getDifficulties();
     }, []);
 
-    // Calcola le ricette da mostrare sulla pagina corrente
+    //Calcolo ricette da mostrare sulla pagina corrente
     const indexOfLastRecipe = currentPage * recipesPerPage;
     const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
 
-    // Funzione di filtraggio
+    //Funzione di filtraggio
     const filteredRecipes = recipes.filter(recipe => {
         return (
             (nameRecipe === '' || recipe.name.toLowerCase().includes(nameRecipe.toLowerCase())) &&
@@ -87,22 +87,22 @@ export default function Home() {
 
     const currentRecipes = filteredRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
-    // Cambia pagina
+    //Cambia pagina
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-    // Calcola il numero totale di pagine
+    //Calcola il numero totale di pagine
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(filteredRecipes.length / recipesPerPage); i++) {
         pageNumbers.push(i);
     }
 
-    // Gestore del submit del form
+    //Submit del form
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setCurrentPage(1); // Resetta alla prima pagina quando si fa una nuova ricerca
     };
 
-    // Funzione per mostrare/nascondere la barra di ricerca
+    //Funzione per mostrare/nascondere la barra di ricerca
     const toggleSearch = () => {
         setShowSearch(!showSearch);
     };

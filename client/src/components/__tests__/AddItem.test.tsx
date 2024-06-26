@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import AddItem from '../components/AddItem';
-import { Cuisines, Diets, Difficulties } from '../types';
+import AddItem from '../AddItem';
+import { Cuisines, Diets, Difficulties } from '../../types';
 import { MemoryRouter } from 'react-router-dom';
 
 // Mock data

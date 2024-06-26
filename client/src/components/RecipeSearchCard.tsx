@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 type Comment = {
     id: string;
     recipeId: string;
@@ -19,6 +20,8 @@ type Props = {
 export default function RecipeSearchCard({recipeId, name, ingredients, image, difficultyId, dietId}: Props) {
     const [difficulty, setDifficulty] = useState('');
     const [comment, setComments] = useState<Comment>();
+
+    const navigate = useNavigate();
 
     const imageBackground = {
         backgroundImage: `url(http://localhost:8080${image})`,
@@ -87,7 +90,11 @@ export default function RecipeSearchCard({recipeId, name, ingredients, image, di
             
             </div>
             
-            <button className='buttonColor pl-4 pr-4 p-2 rounded-3xl text-xs text-white mt-4 font-thin hover:scale-110 transition-all'>View Details</button>
+            <button
+              onClick={() => navigate(`/recipe-details/${recipeId}`)} 
+              className='buttonColor pl-4 pr-4 p-2 rounded-3xl text-xs text-white mt-4 font-thin hover:scale-110 transition-all'>
+                View Details
+            </button>
         </div>
     </div>
   )
