@@ -1,46 +1,128 @@
-# Getting Started with Create React App
+# RecipeBoo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Per far partire l'applicazione
 
-## Available Scripts
+aprire il server:
 
-In the project directory, you can run:
+1. cd server
+2. npm start
 
-### `npm start`
+per il client:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. cd client
+2. npm install
+3. npm start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Per far partire i test
 
-### `npm test`
+1. cd client
+2. npm test
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+RecipeBoo è un'applicazione web per scoprire e aggiungere ricette. Include funzionalità di ricerca, visualizzazione di dettagli delle ricette e aggiunta di commenti degli utenti.
 
-### `npm run build`
+## Struttura del Progetto
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `App.tsx`
+- `Home.tsx`
+- `AddItem.tsx`
+- `RecipeDetails.tsx`
+- `Welcome.tsx`
+- `RecipeSearchCard.tsx`
+- `NavbarHome.tsx`
+- `NavbarAdd.tsx`
+- `__tests__`
+  - `AddItem.test.tsx`
+  - `RecipeDetails.test.tsx`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Descrizione delle Componenti
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### App.tsx
+Il file principale del progetto che definisce le rotte principali utilizzando `react-router-dom`.
 
-### `npm run eject`
+- **Rotte**:
+  - `/`: Componente `Welcome`
+  - `/home`: Componente `Home`
+  - `/add-item`: Componente `AddItem`
+  - `/recipe-details/:id`: Componente `RecipeDetails`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Home.tsx
+Componente per la visualizzazione della pagina principale con le ricette. Include funzionalità di ricerca e paginazione.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Stati**:
+  - `recipes`: Array di ricette.
+  - `currentPage`: Numero della pagina corrente.
+  - `showSearch`: Booleano per mostrare/nascondere la barra di ricerca.
+  - Filtri: `nameRecipe`, `cuisineName`, `dietaryPref`, `difficulty`.
+  - Opzioni preimpostate: `cuisines`, `diets`, `difficulties`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Effetti**:
+  - Recupera i dati delle ricette, delle cucine, delle diete e delle difficoltà dal server al caricamento della pagina.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Funzioni**:
+  - `handleSubmit`: Gestisce l'invio del form di ricerca.
+  - `toggleSearch`: Mostra/nasconde la barra di ricerca.
 
-## Learn More
+### AddItem.tsx
+Componente per aggiungere una nuova ricetta. Include un form per l'inserimento di dettagli della ricetta.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Stati**:
+  - `recipeName`, `ingredients`, `newIngredient`, `instructions`, `cuisineType`, `dietaryPreference`, `difficulty`, `image`.
+  - Opzioni preimpostate: `cuisines`, `diets`, `difficulties`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Effetti**:
+  - Recupera i dati delle cucine, delle diete e delle difficoltà dal server al caricamento della pagina.
+
+- **Funzioni**:
+  - `handleImageChange`: Gestisce il caricamento dell'immagine.
+  - `handleSubmit`: Gestisce l'invio del form.
+  - `handleAddIngredient`: Aggiunge un ingrediente alla lista.
+  - `handleRemoveIngredient`: Rimuove un ingrediente dalla lista.
+
+### RecipeDetails.tsx
+Componente per visualizzare i dettagli di una ricetta e i commenti degli utenti. Include la possibilità di aggiungere un nuovo commento.
+
+- **Stati**:
+  - `recipe`: Dettagli della ricetta.
+  - `comments`: Array di commenti.
+  - `newComment`, `newRating`: Stato per nuovi commenti.
+
+- **Effetti**:
+  - Recupera i dati della ricetta e dei commenti dal server al caricamento della pagina.
+
+- **Funzioni**:
+  - `formatDate`: Formatta la data dei commenti.
+  - `handleCommentSubmit`: Gestisce l'invio di un nuovo commento.
+
+### Welcome.tsx
+Componente per la pagina di benvenuto con un'animazione per il pulsante "Explore".
+
+- **Stati**:
+  - `isAnimating`: Stato per l'animazione.
+
+- **Funzioni**:
+  - `handleExploreClick`: Gestisce il click sul pulsante "Explore".
+
+### RecipeSearchCard.tsx
+Componente per visualizzare una card di ricerca della ricetta con dettagli come nome, ingredienti, difficoltà e valutazione.
+
+- **Stati**:
+  - `difficulty`: Difficoltà della ricetta.
+  - `comment`: Commento della ricetta.
+
+- **Effetti**:
+  - Recupera i dati delle difficoltà e dei commenti dal server.
+
+### NavbarHome.tsx
+Componente per la barra di navigazione della home page con un pulsante per mostrare/nascondere la barra di ricerca.
+
+### NavbarAdd.tsx
+Componente per la barra di navigazione della pagina di aggiunta ricetta con un pulsante per tornare alla home page.
+
+## Test
+I test sono scritti utilizzando `@testing-library/react`.
+
+### AddItem.test.tsx
+Testa la corretta visualizzazione del form di aggiunta ricetta.
+
+### RecipeDetails.test.tsx
+Testa la funzionalità di aggiunta di un commento e la corretta visualizzazione dei commenti.
