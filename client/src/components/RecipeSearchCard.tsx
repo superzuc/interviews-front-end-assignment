@@ -73,10 +73,18 @@ export default function RecipeSearchCard({recipeId, name, ingredients, image, di
         <div>
             <div className='flex flex-row items-center'>
             <div className='flex flex-col items-baseline w-56'>
-                <h1 className='font-bold text-sm '>{comment?.comment}</h1>
-                <p className='font-thin text-xs'>Rated {comment?.rating} stars from users</p>
+                {comment?.comment && comment.rating ? 
+                <div>
+                    <h1 className='font-bold text-sm '>{comment?.comment}</h1>
+                    <p className='font-thin text-xs'>Rated {comment?.rating} stars from users</p>
+                </div> : 
+                <p className='font-thin text-xs'>Not Rated yet!</p> }
+                
                 </div>
-            <div className='buttonColor p-2 text-white text-xs rounded-2xl items-center font-thin ml-4'>{comment?.rating}</div>
+                {comment?.comment ?
+                <div className='buttonColor p-2 text-white text-xs rounded-2xl items-center font-thin ml-4'>{comment?.rating}</div>
+                 : <div></div>}
+            
             </div>
             
             <button className='buttonColor pl-4 pr-4 p-2 rounded-3xl text-xs text-white mt-4 font-thin hover:scale-110 transition-all'>View Details</button>

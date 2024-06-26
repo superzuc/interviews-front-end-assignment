@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type NavbarProps = {
     toggleSearch: () => void;
 };
 
 export default function Navbar({ toggleSearch }: NavbarProps) {
+    const navigate = useNavigate()
   return (
     <div className='w-full p-8 grid grid-cols-6 items-center gap-4 md:grid-cols-4 border-b-2 shadow-lg'>
         <div className='titleFont text-3xl font-extrabold'>
@@ -22,7 +24,7 @@ export default function Navbar({ toggleSearch }: NavbarProps) {
             >
                 Filter
             </button>
-            <button className='p-2 pr-8 pl-8 border border-slate-800 rounded-3xl hover:scale-110 transition-all'>
+            <button onClick={() => navigate('/add-item')} className='p-2 pr-8 pl-8 border border-slate-800 rounded-3xl hover:scale-110 transition-all'>
                 Add
             </button>
         </div>

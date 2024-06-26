@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import { Cuisines, Diets, Recipe } from '../types';
+import NavbarHome from './NavbarHome';
+import { Cuisines, Diets, Difficulties, Recipe } from '../types';
 import { FaArrowLeft } from "react-icons/fa";
 import RecipeSearchCard from './RecipeSearchCard';
-
-const axios = require('axios');
 
 export default function Home() {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -16,11 +14,14 @@ export default function Home() {
     const [nameRecipe, setNameRecipe] = useState('');
     const [cuisineName, setCuisineName] = useState('');
     const [dietaryPref, setDietaryPref] = useState('');
+    const [difficulty, setDifficulty] = useState('');
 
     // Stati per le opzioni preimpostate
     const [cuisines, setCuisines] = useState<Cuisines[]>([]);
     const [diets, setDiets] = useState<Diets[]>([]);
+    const [difficulties, setDifficulties] = useState<Difficulties[]>()
 
+    //Prendere dati dal server
     useEffect(() => {
         const getRecipes = async () => {
             try {
@@ -53,9 +54,21 @@ export default function Home() {
             }
         };
 
+        const getDifficulties = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/difficulties');
+                const difficulties = await response.json();
+                setDifficulties(difficulties);
+            } catch (error) {
+                console.error('Errore nel recupero delle difficoltà:', error);
+                throw error;
+            }
+        };
+
         getRecipes();
         getCuisines();
         getDiets();
+        getDifficulties();
     }, []);
 
     // Calcola le ricette da mostrare sulla pagina corrente
@@ -67,7 +80,8 @@ export default function Home() {
         return (
             (nameRecipe === '' || recipe.name.toLowerCase().includes(nameRecipe.toLowerCase())) &&
             (cuisineName === '' || recipe.cuisineId === cuisineName) &&
-            (dietaryPref === '' || recipe.dietId === dietaryPref)
+            (dietaryPref === '' || recipe.dietId === dietaryPref) &&
+            (difficulty === '' || recipe.difficultyId === difficulty)
         );
     });
 
@@ -95,7 +109,7 @@ export default function Home() {
 
     return (
         <div>
-            <Navbar toggleSearch={toggleSearch} />
+            <NavbarHome toggleSearch={toggleSearch} />
             <div className={`grid ${showSearch ? 'grid-cols-3' : 'grid-cols-1'} mt-4 transition-all duration-500`}>
                 {showSearch && (
                     <div className='flex flex-col'>
@@ -133,6 +147,18 @@ export default function Home() {
                                     <option value="">Choose Preference</option>
                                     {diets.map(diet => (
                                         <option key={diet.id} value={diet.id}>{diet.name}</option>
+                                    ))}
+                                </select>
+
+                                <p className='text-bold mt-4'>Select difficulty</p>
+                                <select
+                                    className='border rounded-3xl p-4 w-full mt-2'
+                                    value={difficulty}
+                                    onChange={(e) => setDifficulty(e.target.value)}
+                                >
+                                    <option value="">Choose Difficulty</option>
+                                    {difficulties?.map(difficulty => (
+                                        <option key={difficulty.id} value={difficulty.id}>{difficulty.name}</option>
                                     ))}
                                 </select>
 

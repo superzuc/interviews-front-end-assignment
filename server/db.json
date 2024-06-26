@@ -351,6 +351,39 @@
       "dietId": "3",
       "difficultyId": "1",
       "image": "/uploads/Pasta-Primavera-f.jpg"
+    },
+    {
+      "id": "1719333532170",
+      "name": "Pasta al pesto",
+      "ingredients": [
+        "Pasta ",
+        " basilico ",
+        " parmigiano ",
+        " pinoli ",
+        " olio ",
+        " grana  "
+      ],
+      "instructions": "Cuoci la pasta, fai il pesto, mischia tutto",
+      "cuisineId": "1",
+      "dietId": "2",
+      "difficultyId": "1",
+      "image": "/uploads/1719333532168.jpg"
+    },
+    {
+      "id": "1719406052389",
+      "name": "Uova Tonnate",
+      "ingredients": [
+        "uova",
+        "tonno",
+        "maionese",
+        "olive",
+        "capperi"
+      ],
+      "instructions": "Fai bollire le uova, mischia il tuorlo sodo con maionese, capperi e tonno, metti il composto nell'albume solidificato",
+      "cuisineId": "1",
+      "dietId": "2",
+      "difficultyId": "1",
+      "image": "/uploads/1719406052387.jpg"
     }
   ],
   "comments": [
